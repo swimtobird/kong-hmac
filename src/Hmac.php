@@ -125,7 +125,7 @@ class Hmac
     {
         $signing = self::getSignatureString($this->getSignatureHeaders());
 
-        return base64_encode(hash_hmac($this->algorithm, $signing, '70e8f08ce07490d05d1252a17b1aa335', $raw_output = true));
+        return base64_encode(hash_hmac($this->algorithm, $signing, $this->secret, $raw_output = true));
     }
 
     protected function getAuthorizationHeader()
