@@ -23,7 +23,9 @@
 
         print json($response->getBody(),true);
 ````
+
 - POST
+
 ``````php
 
         $hamc = new Hmac('user','secret','example.com','POST');
@@ -35,7 +37,7 @@
 
         $client = new GuzzleHttp\Client(['base_uri' => 'http://example.com']);
 
-        $request = $client->request('GET', '/default', [
+        $request = $client->request('POST', '/default', [
             'headers' => $header
             'form_params'=>[
                 'params' => 'test'
