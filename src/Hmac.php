@@ -131,7 +131,7 @@ class Hmac
     protected function getSignatureHeaders()
     {
         return [
-            $this->date => self::getDateHeader(),
+            strtolower($this->date) => self::getDateHeader(),
             'request-line' => $this->getAuthorizationHeader()
         ];
     }
