@@ -47,7 +47,7 @@ class Hmac
 
         $this->setUrl($url);
 
-        $this->setDate($url);
+        $this->setDate($date);
     }
 
     /**
