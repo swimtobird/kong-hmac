@@ -25,6 +25,8 @@ class Hmac
 
     protected $algorithm = 'sha1';
 
+    protected $date;
+
     /**
      * Hmac constructor.
      * @param $username
@@ -33,7 +35,7 @@ class Hmac
      * @param string $method
      * @param string $url
      */
-    public function __construct($username, $secret, $host, $method = 'GET', $url = '/')
+    public function __construct($username, $secret, $host, $method = 'GET', $url = '/', $date = 'Date')
     {
         $this->setUsername($username);
 
@@ -44,6 +46,8 @@ class Hmac
         $this->setMethod($method);
 
         $this->setUrl($url);
+
+        $this->setDate($date);
     }
 
     /**
@@ -97,11 +101,22 @@ class Hmac
         return $this;
     }
 
+    /**
+     * @param $date
+     * @return $this
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
     public function getHeader()
     {
         return [
             "Host" => $this->host,
-            "Date" => self::getDateHeader(),
+            $this->date => self::getDateHeader(),
             "Authorization" => $this->getAuthorization(),
         ];
     }
@@ -116,7 +131,7 @@ class Hmac
     protected function getSignatureHeaders()
     {
         return [
-            'date' => self::getDateHeader(),
+            strtolower($this->date) => self::getDateHeader(),
             'request-line' => $this->getAuthorizationHeader()
         ];
     }
